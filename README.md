@@ -90,6 +90,15 @@ Video export is a planned phase-2/phase-3 item and will only be marked complete 
 - Setup, metrics, and plotting script skeletons.
 - Candidate MVP routes waiting for user confirmation.
 
+## Current Stage Status
+
+2026-07-12 environment validation update:
+
+- SUMO environment configuration is not complete yet.
+- Baseline has not been run yet.
+- The current blocker is that WSL/Linux is unavailable on this machine; `wsl` reports that no Linux distribution is installed.
+- Next step: install and initialize WSL2 with Ubuntu, then rerun the Linux environment checks, `pixi install`, `pixi run build`, SUMO tests, and a one-episode `g1_box` baseline.
+
 ## Not Yet Complete
 
 - SUMO native build verification.
@@ -111,4 +120,3 @@ git push -u origin main
 ## 7-Minute Presentation Suggestion
 
 Use seven slides: problem and SUMO idea, framework data flow, baseline task, proposed modification, metrics and experiment design, expected risks/fallbacks, and final deliverables.
-
