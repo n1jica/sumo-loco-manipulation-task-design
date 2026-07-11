@@ -3,7 +3,7 @@
 ## 2026-07-11 Phase 1 Setup
 
 - Created local repository scaffold.
-- Cloned upstream SUMO to `third_party/sumo` for analysis.
+- Cloned upstream SUMO to `third_party/sumo` for analysis at commit `4cea4e4e229ac075219ba3a3919c8e6e5f84f228`.
 - Found that GitHub CLI was not installed initially.
 - Found that upstream SUMO uses `pixi` and native extensions.
 - Found that upstream pixi platforms are Linux/macOS, so full Windows execution may require WSL, Linux, macOS, or a container.
