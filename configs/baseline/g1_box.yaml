@@ -1,0 +1,7 @@
+name: g1_box_baseline
+sumo_task: g1_box
+optimizer: cem
+trials: 3
+episode_length_s: 30.0
+notes: "Candidate baseline. Run only after SUMO native extensions are built."
+

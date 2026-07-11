@@ -1,0 +1,10 @@
+name: g1_box_cost_sweep_candidate
+base_task: g1_box
+status: proposed
+sweep:
+  w_goal: [50.0, 70.0, 90.0]
+  w_hand_proximity: [8.0, 10.0, 12.0]
+fixed:
+  trials: 3
+  episode_length_s: 30.0
+

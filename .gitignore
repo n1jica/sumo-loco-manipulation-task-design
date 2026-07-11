@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+outputs/logs/*.csv
+outputs/logs/*.json
+outputs/figures/*.png
+outputs/videos/*.mp4
+outputs/raw_results/*
+!outputs/raw_results/.gitkeep
+third_party/sumo/
+

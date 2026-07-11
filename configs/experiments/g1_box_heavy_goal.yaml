@@ -1,0 +1,17 @@
+name: g1_box_heavy_goal_candidate
+base_task: g1_box
+status: proposed
+modifications:
+  object_mass_multiplier: 1.5
+  goal_distance_multiplier: 1.3
+  cost_weight_candidate:
+    w_goal: 70.0
+    w_hand_proximity: 12.0
+metrics:
+  - success_rate
+  - final_object_goal_distance
+  - completion_time
+  - fall_rate
+  - task_cost
+  - runtime
+
