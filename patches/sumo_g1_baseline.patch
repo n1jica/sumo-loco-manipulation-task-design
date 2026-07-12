@@ -1,0 +1,60 @@
+diff --git a/sumo/run_mpc/run_mpc.py b/sumo/run_mpc/run_mpc.py
+--- a/sumo/run_mpc/run_mpc.py
++++ b/sumo/run_mpc/run_mpc.py
+@@ -246,9 +246,13 @@ def run_mpc(config: RunMPCConfig) -> list[dict]:
+     # Create controller
+     controller_config = ControllerConfig()
+     controller_config.set_override(config.init_task)
+-    controller = Controller(
+-        controller_config, task, optimizer, rollout_backend_registry={"mujoco_g1": G1RolloutBackend}
+-    )
++    controller = Controller(
++        controller_config,
++        task,
++        optimizer,
++        rollout_backend=task_dict[config.init_task].rollout_backend,
++        rollout_backend_registry={"mujoco_g1": G1RolloutBackend},
++    )
+ 
+     # Set up visualization
+     viser_model = None
+diff --git a/sumo/utils/extensions.py b/sumo/utils/extensions.py
+--- a/sumo/utils/extensions.py
++++ b/sumo/utils/extensions.py
+@@ -1,13 +1,20 @@
+ # Copyright (c) 2025-2026 Robotics and AI Institute LLC dba RAI Institute. All rights reserved.
+ 
++import os
+ from importlib import import_module
++from pathlib import Path
+ from types import ModuleType
+ 
+ 
+ def require_g1_extensions() -> ModuleType:
+     """Import the local G1 native extension with a repo-specific error."""
+     try:
+-        return import_module("g1_extensions")
++        extensions = import_module("g1_extensions")
++        if not hasattr(extensions, "G1Rollout"):
++            policy_dir = Path(__file__).resolve().parents[2] / "g1_extensions" / "policy"
++            os.environ.setdefault("G1_EXTENSIONS_POLICY_DIR", str(policy_dir))
++            extensions = import_module("g1_extensions._g1_extensions")
++        return extensions
+     except ImportError as exc:
+         raise ImportError(
+             "G1 tasks require the local `g1_extensions` package.\n"
+diff --git a/g1_extensions/g1_extensions/__init__.py b/g1_extensions/g1_extensions/__init__.py
+new file mode 100644
+--- /dev/null
++++ b/g1_extensions/g1_extensions/__init__.py
+@@ -0,0 +1,10 @@
++import os
++from pathlib import Path
++
++
++POLICY_DIR = Path(__file__).resolve().parents[1] / "policy"
++os.environ.setdefault("G1_EXTENSIONS_POLICY_DIR", str(POLICY_DIR))
++
++from g1_extensions._g1_extensions import G1Rollout, rollout, sim, sim_g1
++
++__all__ = ["G1Rollout", "rollout", "sim", "sim_g1"]
